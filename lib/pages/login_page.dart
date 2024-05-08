@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'home2_page.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -68,6 +70,11 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           print(usernameTextEditingController.text);
                           print(passwordTextEditingController.text);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomePage(),
+                              ));
                         },
                         style: ButtonStyle(
                             backgroundColor:
