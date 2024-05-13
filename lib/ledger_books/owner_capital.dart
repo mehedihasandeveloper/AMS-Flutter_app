@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
+import '../pages/ledger_books_page.dart';
 
-class ViewTransactions extends StatelessWidget {
-  const ViewTransactions({super.key});
+class OwnerCapital extends StatelessWidget {
+  const OwnerCapital({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ViewTransactions extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const HomePage(),
+                      builder: (context) => const LedgerBooksPage(),
                     ));
               },
               icon: const Icon(Icons.home),
@@ -24,7 +24,7 @@ class ViewTransactions extends StatelessWidget {
           ],
           title: const Center(
               child: Text(
-            'All Transactions',
+            'Owner Capital',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           )),
         ),
