@@ -1,7 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:final_project/model/transaction.dart';
 import 'package:flutter/material.dart';
-
 import 'home_page.dart';
 
 class ViewTransactions extends StatefulWidget {

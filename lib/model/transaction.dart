@@ -13,9 +13,6 @@ class Transaction {
   String? amount;
   String? description;
 
-  // List<Transaction> usersFromJson(String string) => List<Transaction>.from(
-  //     jsonDecode(string).map((x) => Transaction.fromJson(x)));
-
   // Static method to parse JSON string into a list of Transaction objects
   static List<Transaction> usersFromJson(String jsonString) {
     List<dynamic> jsonList = jsonDecode(jsonString);
@@ -53,20 +50,6 @@ class Transaction {
     );
   }
 
-  // Transaction.fromJson(Map<String, dynamic> json) {
-  //   id = json['id'];
-  //   createdAt = json['createdAt'];
-  //   updatedAt = json['updatedAt'];
-  //   createdBy = json['createdBy'];
-  //   updatedBy = json['updatedBy'];
-  //   userName = json['userName'];
-  //   entryDate = json['entryDate'];
-  //   debitAccount = json['debitAccount'];
-  //   creditAccount = json['creditAccount'];
-  //   amount = json['amount'];
-  //   description = json['description'];
-  // }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
@@ -83,21 +66,3 @@ class Transaction {
     return data;
   }
 }
-
-
-
-  // Transaction? transaction;
-
-  // Transaction({this.transaction});
-
-  // Transaction.fromJson(Map<String, dynamic> json) {
-  //   transaction = json['item'] != null ? new Transaction.fromJson(json['item']) : null;
-  // }
-
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = new Map<String, dynamic>();
-  //   if (this.transaction != null) {
-  //     data['item'] = this.transaction!.toJson();
-  //   }
-  //   return data;
-  // }

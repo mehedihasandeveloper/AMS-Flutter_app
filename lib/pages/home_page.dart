@@ -130,31 +130,31 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.black87,
-                  ),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.bug_report_sharp,
-                        size: 50,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        "Reports",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                // Container(
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(12),
+                //     color: Colors.black87,
+                //   ),
+                //   child: const Column(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Icon(
+                //         Icons.bug_report_sharp,
+                //         size: 50,
+                //         color: Colors.white,
+                //       ),
+                //       Text(
+                //         "Reports",
+                //         style: TextStyle(
+                //           color: Colors.white,
+                //           fontSize: 16,
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
                 GestureDetector(
-                   onTap: () {
+                  onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -188,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color: Colors.teal,
+                    color: Colors.black87,
                   ),
                   child: const Column(
                     mainAxisAlignment: MainAxisAlignment.center,

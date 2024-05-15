@@ -22,8 +22,7 @@ class _MyWidgetState extends State<CreateScreen> {
       TextEditingController();
   TextEditingController lastnameTextEditingController = TextEditingController();
 
-  final String login = 'http://192.168.20.46:8080/api/auth/signup';
-  final String _delete = '';
+  final String signUpAPI = 'https://checking-tlhc.onrender.com/api/auth/signup';
 
   void loginData() async {
     var reqBody = {
@@ -34,7 +33,7 @@ class _MyWidgetState extends State<CreateScreen> {
       "lastname": lastnameTextEditingController.text
     };
 
-    var response = await http.post(Uri.parse(login),
+    var response = await http.post(Uri.parse(signUpAPI),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(reqBody));
 

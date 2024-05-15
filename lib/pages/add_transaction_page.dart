@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'package:http/http.dart' as http;
 
-import 'view_transaction_page.dart';
-
 class AddTransaction extends StatefulWidget {
   const AddTransaction({super.key});
 
@@ -55,10 +53,10 @@ class _AddTransactionState extends State<AddTransaction> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => const HomePage(),
                   ));
             },
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
           ),
         ],
         title: const Center(
