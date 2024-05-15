@@ -1,5 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'package:http/http.dart' as http;
+
+import 'view_transaction_page.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({super.key});
@@ -9,10 +13,30 @@ class AddTransaction extends StatefulWidget {
 }
 
 class _AddTransactionState extends State<AddTransaction> {
-  TextEditingController usernameTextEditingController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  final String restApi = 'https://checking-tlhc.onrender.com/j';
+
+  void addTransactionData() async {
+    var reqBody = {
+      "entryDate": _dateController.text,
+      "debitAccount": debitAccountValue,
+      "creditAccount": creditAccountValue,
+      "amount": _amountController.text,
+      "description": _descriptionController.text
+    };
+
+    var response = await http.post(Uri.parse(restApi),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(reqBody));
+
+    var jsonResponse = jsonDecode(response.body);
+
+    print(jsonResponse);
+    print(response.statusCode);
+  }
 
   Color rgbColor = const Color.fromARGB(255, 203, 197, 227);
 
@@ -283,11 +307,13 @@ class _AddTransactionState extends State<AddTransaction> {
                     ),
                     TextButton(
                       onPressed: () {
-                        print(_dateController.text);
-                        print(_amountController.text);
-                        print(debitAccountValue);
-                        print(creditAccountValue);
-                        print(_descriptionController.text);
+                        addTransactionData();
+
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => const ViewTransactions(),
+                        //     ));
                       },
                       style: ButtonStyle(
                           backgroundColor:
