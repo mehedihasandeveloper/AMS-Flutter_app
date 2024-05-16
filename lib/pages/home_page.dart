@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+import 'package:final_project/pages/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import 'add_transaction_page.dart';
 import 'create_user_page.dart';
 import 'ledger_books_page.dart';
 import 'view_transaction_page.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,6 +15,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final String logOutAPI =
+      'https://checking-tlhc.onrender.com/api/auth/signout';
+
+  void logOut() async {
+    var response = await http.post(Uri.parse(logOutAPI),
+        headers: {"Content-Type": "application/json"}, body: jsonEncode(""));
+
+    if (response.statusCode == 200) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginPage(),
+          ));
+    } else {
+      print("Logout unsuccessful");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -185,27 +203,32 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.black87,
-                  ),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.logout,
-                        size: 50,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        "Logout",
-                        style: TextStyle(
+                GestureDetector(
+                  onTap: () {
+                    logOut();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.black87,
+                    ),
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.logout,
+                          size: 50,
                           color: Colors.white,
-                          fontSize: 16,
                         ),
-                      )
-                    ],
+                        Text(
+                          "Logout",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ]),

@@ -1,5 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'home_page.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,8 +12,38 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController usernameTextEditingController = TextEditingController();
-  TextEditingController passwordTextEditingController = TextEditingController();
+  TextEditingController usernameLoginTextEditingController =
+      TextEditingController();
+  TextEditingController passwordLoginTextEditingController =
+      TextEditingController();
+
+  final String loginAPI = 'https://checking-tlhc.onrender.com/api/auth/signin';
+
+  void loginData() async {
+    var reqBody = {
+      "username": usernameLoginTextEditingController.text,
+      "password": passwordLoginTextEditingController.text
+    };
+
+    var response = await http.post(Uri.parse(loginAPI),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(reqBody));
+
+    var jsonResponse = jsonDecode(response.body);
+
+    const storage = FlutterSecureStorage();
+    await storage.write(key: 'token', value: jsonResponse['jwtToken']);
+
+    if (response.statusCode == 200) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(),
+          ));
+    } else {
+      print("Login unsuccessful");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 1.0,
                       ),
                       TextField(
-                        controller: usernameTextEditingController,
+                        controller: usernameLoginTextEditingController,
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
                             labelText: "Username",
@@ -53,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 1.0,
                       ),
                       TextField(
-                        controller: passwordTextEditingController,
+                        controller: passwordLoginTextEditingController,
                         obscureText: true,
                         decoration: const InputDecoration(
                             labelText: "Password",
@@ -67,13 +100,14 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          print(usernameTextEditingController.text);
-                          print(passwordTextEditingController.text);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomePage(),
-                              ));
+                          print(usernameLoginTextEditingController.text);
+                          print(passwordLoginTextEditingController.text);
+                          loginData();
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) => const HomePage(),
+                          //     ));
                         },
                         style: ButtonStyle(
                             backgroundColor:
@@ -85,8 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                                     side: const BorderSide(
                                         color: Colors.white)))),
                         child: const SizedBox(
-                          height: 30.0,
-                          width: 100.0,
+                          height: 45.0,
                           child: Center(
                             child: Text(
                               "Submit",

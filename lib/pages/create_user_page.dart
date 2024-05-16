@@ -1,11 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-
 import 'home_page.dart';
-
-// import 'list.dart';
 
 class CreateScreen extends StatefulWidget {
   const CreateScreen({super.key});
@@ -38,9 +34,6 @@ class _MyWidgetState extends State<CreateScreen> {
         body: jsonEncode(reqBody));
 
     var jsonResponse = jsonDecode(response.body);
-
-    // const storage = FlutterSecureStorage();
-    // await storage.write(key: 'token', value: jsonResponse['jwtToken']);
 
     print(jsonResponse);
     print(response.statusCode);
@@ -86,9 +79,10 @@ class _MyWidgetState extends State<CreateScreen> {
                       const SizedBox(
                         height: 1.0,
                       ),
-                      const TextField(
+                      TextField(
+                        controller: usernameTextEditingController,
                         keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Username",
                             prefixIcon: Icon(Icons.account_box),
                             enabledBorder: OutlineInputBorder(
@@ -107,9 +101,10 @@ class _MyWidgetState extends State<CreateScreen> {
                       const SizedBox(
                         height: 1.0,
                       ),
-                      const TextField(
+                      TextField(
+                        controller: emailTextEditingController,
                         keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Email",
                             prefixIcon: Icon(Icons.email),
                             enabledBorder: OutlineInputBorder(
@@ -128,9 +123,10 @@ class _MyWidgetState extends State<CreateScreen> {
                       const SizedBox(
                         height: 1.0,
                       ),
-                      const TextField(
+                      TextField(
+                        controller: passwordTextEditingController,
                         keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Password",
                             prefixIcon: Icon(Icons.password),
                             enabledBorder: OutlineInputBorder(
@@ -149,9 +145,10 @@ class _MyWidgetState extends State<CreateScreen> {
                       const SizedBox(
                         height: 1.0,
                       ),
-                      const TextField(
+                      TextField(
+                        controller: firstnameTextEditingController,
                         keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "First Name",
                             prefixIcon: Icon(Icons.first_page),
                             enabledBorder: OutlineInputBorder(
@@ -170,9 +167,10 @@ class _MyWidgetState extends State<CreateScreen> {
                       const SizedBox(
                         height: 1.0,
                       ),
-                      const TextField(
+                      TextField(
+                        controller: lastnameTextEditingController,
                         keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Last Name",
                             prefixIcon: Icon(Icons.last_page),
                             enabledBorder: OutlineInputBorder(

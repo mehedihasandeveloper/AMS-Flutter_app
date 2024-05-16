@@ -66,95 +66,58 @@ class _PayableLedgerState extends State<PayableLedger> {
           ),
         ),
         body: SingleChildScrollView(
+          scrollDirection: Axis.horizontal, // Enable horizontal scrolling
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.only(top: 15.0, left: 5.0),
             child: Table(
               border: TableBorder.all(color: Colors.black),
               // defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+              columnWidths: const {
+                // Set fixed widths for columns to prevent overflow
+                0: FixedColumnWidth(90.0), // Date
+                1: FixedColumnWidth(85.0), // Amount
+                2: FixedColumnWidth(80.0), // Debit
+                3: FixedColumnWidth(100.0), // Credit
+                4: FixedColumnWidth(50.0), // Actions
+              },
               children: [
+                // Table headers
                 const TableRow(
                   decoration: BoxDecoration(
                     color: Colors.redAccent,
                   ),
                   children: [
-                    TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text("Date"),
-                      ),
-                    ),
-                    TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text("Dr Amount"),
-                      ),
-                    ),
-                    TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text("Cr Amount"),
-                      ),
-                    ),
-                    TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text("Balance"),
-                      ),
-                    ),
-                    TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text("TID"),
-                      ),
-                    ),
+                    TableCell(child: Center(child: Text("Date"))),
+                    TableCell(child: Center(child: Text("Debit"))),
+                    TableCell(child: Center(child: Text("Credit"))),
+                    TableCell(child: Center(child: Text("Balance"))),
+                    TableCell(child: Center(child: Text("TID"))),
                   ],
                 ),
-                // Populate table rows with transaction data
+
                 for (var transaction in _userModel)
                   TableRow(
                     children: [
                       TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(transaction.entryDate ?? ''),
-                        ),
-                      ),
+                          child:
+                              Center(child: Text(transaction.entryDate ?? ''))),
                       TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        child: Center(
                           child:
                               Text((transaction.debitAmount ?? 0).toString()),
                         ),
                       ),
                       TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child:
-                              Text((transaction.creditAmount ?? 0).toString()),
-                        ),
-                      ),
+                          child: Center(
+                              child: Text(
+                                  (transaction.creditAmount ?? 0).toString()))),
                       TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(transaction.balance.toString()),
-                        ),
-                      ),
+                          child: Center(
+                              child: Text(transaction.balance.toString()))),
                       TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(transaction.transaction!.id.toString()),
-                        ),
-                      ),
+                          child: Center(
+                              child: Text(
+                                  transaction.transaction!.id.toString()))),
                     ],
                   ),
               ],
