@@ -1,21 +1,56 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../model/transaction.dart';
 import 'home_page.dart';
 import 'package:http/http.dart' as http;
 
 class AddTransaction extends StatefulWidget {
-  const AddTransaction({super.key});
+  AddTransaction({super.key, this.ngmodel});
+  Transaction? ngmodel;
 
   @override
   State<AddTransaction> createState() => _AddTransactionState();
 }
 
 class _AddTransactionState extends State<AddTransaction> {
-  final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _amountController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
+  late TextEditingController _dateController = TextEditingController();
+  late TextEditingController _amountController = TextEditingController();
+  late TextEditingController _descriptionController = TextEditingController();
 
-  final String restApi = 'https://checking-tlhc.onrender.com/j';
+  late String restApi = 'https://checking-tlhc.onrender.com/j';
+
+  void getData() {
+    if (widget.ngmodel != null) {
+      //  _dateController = widget.ngmodel!.entryDate as TextEditingController;
+      //  _amountController = widget.ngmodel!.amount as TextEditingController;
+      _dateController.value =
+          TextEditingValue(text: widget.ngmodel!.entryDate.toString());
+      _amountController.value =
+          TextEditingValue(text: widget.ngmodel!.amount.toString());
+      _descriptionController.value =
+          TextEditingValue(text: widget.ngmodel!.description.toString());
+
+      print(widget.ngmodel!.debitAccount);
+      print(widget.ngmodel!.creditAccount);
+    }
+    print("Data not get");
+  }
+
+  void updateData(String id) async {
+    var reqBody = {
+      "entryDate": _dateController.text,
+      "debitAccount": debitAccountValue,
+      "creditAccount": creditAccountValue,
+      "amount": _amountController.text,
+      "description": _descriptionController.text
+    };
+
+    var response = await http.put(Uri.parse(restApi + '/' + id),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(reqBody));
+
+    var jsonResponse = jsonDecode(response.body);
+  }
 
   void addTransactionData() async {
     var reqBody = {
@@ -34,6 +69,19 @@ class _AddTransactionState extends State<AddTransaction> {
 
     print(jsonResponse);
     print(response.statusCode);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+    if (widget.ngmodel != null) {
+      setState(() {
+        debitAccountValue = widget.ngmodel!.debitAccount.toString();
+        creditAccountValue = widget.ngmodel!.creditAccount.toString();
+      });
+    }
   }
 
   Color rgbColor = const Color.fromARGB(255, 203, 197, 227);
@@ -305,7 +353,11 @@ class _AddTransactionState extends State<AddTransaction> {
                     ),
                     TextButton(
                       onPressed: () {
-                        addTransactionData();
+                        if (widget.ngmodel != null) {
+                          updateData(widget.ngmodel!.id.toString());
+                        } else {
+                          addTransactionData();
+                        }
 
                         // Navigator.push(
                         //     context,

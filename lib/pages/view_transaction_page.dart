@@ -1,3 +1,4 @@
+import 'package:final_project/pages/add_transaction_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:final_project/model/transaction.dart';
 import 'package:flutter/material.dart';
@@ -131,7 +132,19 @@ class _ViewTransactionsState extends State<ViewTransactions> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(Icons.update),
+                              IconButton(
+                                icon: const Icon(Icons.update),
+                                onPressed: () {
+
+
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AddTransaction(ngmodel: transaction,)),
+                                  );
+                                },
+                              ),
                               IconButton(
                                 icon: const Icon(Icons.delete),
                                 onPressed: () {
