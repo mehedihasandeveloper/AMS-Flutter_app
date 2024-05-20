@@ -50,6 +50,11 @@ class _AddTransactionState extends State<AddTransaction> {
         body: jsonEncode(reqBody));
 
     var jsonResponse = jsonDecode(response.body);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ));
   }
 
   void addTransactionData() async {
@@ -66,6 +71,12 @@ class _AddTransactionState extends State<AddTransaction> {
         body: jsonEncode(reqBody));
 
     var jsonResponse = jsonDecode(response.body);
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ));
 
     print(jsonResponse);
     print(response.statusCode);

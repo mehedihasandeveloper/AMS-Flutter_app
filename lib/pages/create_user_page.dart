@@ -34,6 +34,11 @@ class _MyWidgetState extends State<CreateScreen> {
         body: jsonEncode(reqBody));
 
     var jsonResponse = jsonDecode(response.body);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ));
 
     print(jsonResponse);
     print(response.statusCode);
